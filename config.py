@@ -11,10 +11,10 @@ class Config:
     REALTIME_UPDATE_INTERVAL = int(os.getenv('REALTIME_UPDATE_INTERVAL', 10))  # 10 seconds
     STOCK_INFO_UPDATE_INTERVAL = int(os.getenv('STOCK_INFO_UPDATE_INTERVAL', 3600))  # 1 hour
     
-    # Flask settings
-    FLASK_HOST = os.getenv('FLASK_HOST', '0.0.0.0')
-    FLASK_PORT = int(os.getenv('FLASK_PORT', 5000))
-    FLASK_DEBUG = os.getenv('FLASK_DEBUG', 'True').lower() == 'true'
+    # Server settings
+    SERVER_HOST = os.getenv('SERVER_HOST', '0.0.0.0')
+    SERVER_PORT = int(os.getenv('SERVER_PORT', 8000))
+    DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
     
     # Default stock symbols to monitor (popular A-share stocks)
     DEFAULT_STOCK_SYMBOLS = [

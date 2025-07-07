@@ -67,8 +67,8 @@ class StockMonitoringSystem:
             logger.info("Initializing data scheduler...")
             self.scheduler = DataScheduler()
             
-            # Create Flask app
-            logger.info("Creating Flask application...")
+            # Create FastAPI app
+            logger.info("Creating FastAPI application...")
             self.app = create_app()
             
             logger.info("System initialization completed successfully")
@@ -87,12 +87,13 @@ class StockMonitoringSystem:
             self.scheduler.start()
             
             # Start the web application
-            logger.info(f"Starting web server on {Config.FLASK_HOST}:{Config.FLASK_PORT}")
-            self.app.run(
-                host=Config.FLASK_HOST,
-                port=Config.FLASK_PORT,
-                debug=Config.FLASK_DEBUG,
-                threaded=True
+            logger.info(f"Starting web server on {Config.SERVER_HOST}:{Config.SERVER_PORT}")
+            import uvicorn
+            uvicorn.run(
+                self.app,
+                host=Config.SERVER_HOST,
+                port=Config.SERVER_PORT,
+                log_level="info"
             )
             
         except KeyboardInterrupt:
@@ -165,7 +166,7 @@ def main():
     print("=" * 60)
     print(f"Starting at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"Database: {Config.DATABASE_PATH}")
-    print(f"Web Interface: http://{Config.FLASK_HOST}:{Config.FLASK_PORT}")
+    print(f"Web Interface: http://{Config.SERVER_HOST}:{Config.SERVER_PORT}")
     print("=" * 60)
     
     # Setup signal handlers
@@ -190,8 +191,8 @@ def main():
         
         print("\nStarting services...")
         print("Web dashboard will be available at:")
-        print(f"  http://localhost:{Config.FLASK_PORT}")
-        print(f"  http://{Config.FLASK_HOST}:{Config.FLASK_PORT}")
+        print(f"  http://localhost:{Config.SERVER_PORT}")
+        print(f"  http://{Config.SERVER_HOST}:{Config.SERVER_PORT}")
         print("\nPress Ctrl+C to stop the system")
         print("=" * 60)
         
